@@ -18,6 +18,7 @@
         'title' => BOX_CATALOG_CATEGORIES_PRODUCTS,
         'link' => tep_href_link('categories.php')
       ),
+    
       array(
         'code' => 'products_attributes.php',
         'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,

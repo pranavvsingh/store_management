@@ -347,7 +347,7 @@
 ?>
 
   <h2 class="h3"><?php echo CATEGORY_COMPANY; ?></h2>
-  
+
   <div class="contentText">
     <div class="form-group">
       <label for="inputCompany" class="control-label col-sm-3"><?php echo ENTRY_COMPANY; ?></label>
@@ -451,7 +451,7 @@
   </div>
 
   <h2 class="h3"><?php echo CATEGORY_CONTACT; ?></h2>
-  
+
   <div class="contentText">
     <div class="form-group has-feedback">
       <label for="inputTelephone" class="control-label col-sm-3"><?php echo ENTRY_TELEPHONE_NUMBER; ?></label>
@@ -463,29 +463,29 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="inputFax" class="control-label col-sm-3"><?php echo ENTRY_FAX_NUMBER; ?></label>
-      <div class="col-sm-9">
+      <!-- <label for="inputFax" class="control-label col-sm-3"><?php echo ENTRY_FAX_NUMBER; ?></label> -->
+      <!-- <div class="col-sm-9">
         <?php
         echo tep_draw_input_field('fax', '', 'id="inputFax" placeholder="' . ENTRY_FAX_NUMBER_TEXT . '"', 'tel');
         ?>
-      </div>
+      </div> -->
     </div>
     <div class="form-group">
-      <label for="inputNewsletter" class="control-label col-sm-3"><?php echo ENTRY_NEWSLETTER; ?></label>
-      <div class="col-sm-9">
+      <!-- <label for="inputNewsletter" class="control-label col-sm-3"><?php echo ENTRY_NEWSLETTER; ?></label> -->
+      <!-- <div class="col-sm-9">
         <div class="checkbox">
           <label>
             <?php echo tep_draw_checkbox_field('newsletter', '1', NULL, 'id="inputNewsletter"'); ?>
             <?php if (tep_not_null(ENTRY_NEWSLETTER_TEXT)) echo ENTRY_NEWSLETTER_TEXT; ?>
           </label>
         </div>
-      </div>
+      </div> -->
     </div>
-  
+
   </div>
 
   <h2 class="h3"><?php echo CATEGORY_PASSWORD; ?></h2>
-  
+
   <div class="contentText">
     <div class="form-group has-feedback">
       <label for="inputPassword" class="control-label col-sm-3"><?php echo ENTRY_PASSWORD; ?></label>

@@ -10,7 +10,8 @@
   Released under the GNU General Public License
 */
 
-  $num_list = (isset($_GET['view']) && ($_GET['view'] == 'all') ) ? 999999 : MAX_DISPLAY_SEARCH_RESULTS; 
+error_reporting(E_ERROR | E_PARSE);
+  $num_list = (isset($_GET['view']) && ($_GET['view'] == 'all') ) ? 999999 : MAX_DISPLAY_SEARCH_RESULTS;
   $listing_split = new splitPageResults($listing_sql, $num_list, 'p.products_id');
 ?>
 
@@ -104,16 +105,16 @@
   $listing_query = tep_db_query($listing_split->sql_query);
 
   $prod_list_contents = NULL;
-  
+
   // php 5
-  // $list_group_item = (isset($item_width) ? $item_width : 4);
+  $list_group_item = (isset($item_width) ? $item_width : 4);
   // // php 7
-  $list_group_item = $item_width ?? 4;
+  // $list_group_item = $item_width ?? 4;
 
   while ($listing = tep_db_fetch_array($listing_query)) {
     $prod_list_contents .= '<div class="item list-group-item col-sm-' . $list_group_item . '" itemprop="itemListElement" itemscope="" itemtype="http://schema.org/Product">';
 	  $prod_list_contents .= '  <div class="productHolder equal-height is-product" data-is-special="' . (int)$listing['is_special'] . '" data-product-price="' . $currencies->display_raw($listing['final_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '" data-product-manufacturer="' . max(0, (int)$listing['manufacturers_id']) . '">';
-    
+
     if (PRODUCT_LIST_IMAGE > 0) {
       if (isset($_GET['manufacturers_id'])  && tep_not_null($_GET['manufacturers_id'])) {
         $prod_list_contents .= '    <a href="' . tep_href_link('product_info.php', 'manufacturers_id=' . $_GET['manufacturers_id'] . '&products_id=' . $listing['products_id']) . '">' . tep_image('images/' . $listing['products_image'], htmlspecialchars($listing['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'itemprop="image"', NULL, 'img-responsive thumbnail group list-group-image') . '</a>';
@@ -121,9 +122,9 @@
         $prod_list_contents .= '    <a href="' . tep_href_link('product_info.php', (isset($sort) ? 'sort=' . $sort . '&' : '') . ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '">' . tep_image('images/' . $listing['products_image'], htmlspecialchars($listing['products_name']), SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT, 'itemprop="image"', NULL, 'img-responsive thumbnail group list-group-image') . '</a>';
       }
     }
-    
+
     $prod_list_contents .= '    <div class="caption">';
-    
+
     if (PRODUCT_LIST_NAME > 0) {
       $prod_list_contents .= '      <h2 class="h3 group inner list-group-item-heading">';
       if (isset($_GET['manufacturers_id']) && tep_not_null($_GET['manufacturers_id'])) {
@@ -132,7 +133,7 @@
         $prod_list_contents .= '    <a itemprop="url" href="' . tep_href_link('product_info.php', ($cPath ? 'cPath=' . $cPath . '&' : '') . 'products_id=' . $listing['products_id']) . '"><span itemprop="name">' . $listing['products_name'] . '</span></a>';
       }
       $prod_list_contents .= '      </h2>';
-    }    
+    }
 
     $prod_list_contents .= '      <p class="group inner list-group-item-text" itemprop="description">' . strip_tags($listing['products_description'], '<br>') . '&hellip;</p><div class="clearfix"></div>';
 
@@ -162,7 +163,7 @@
 
 	  if ( (PRODUCT_LIST_PRICE > 0) || (PRODUCT_LIST_BUY_NOW > 0) ) {
       $prod_list_contents .= '      <div class="row">';
-    
+
       if (PRODUCT_LIST_PRICE > 0) {
         if (tep_not_null($listing['specials_new_products_price'])) {
           $prod_list_contents .= '      <div class="col-xs-12" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="' . tep_output_string($currency) . '" /><div class="btn-group" role="group"><button type="button" class="btn btn-default"><del>' .  $currencies->display_price($listing['products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '</del>&nbsp;&nbsp;<span class="productSpecialPrice" itemprop="price" content="' . $currencies->display_raw($listing['products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '">' . $currencies->display_price($listing['specials_new_products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '</span></button></div></div>';
@@ -170,10 +171,10 @@
           $prod_list_contents .= '      <div class="col-xs-12" itemprop="offers" itemscope itemtype="http://schema.org/Offer"><meta itemprop="priceCurrency" content="' . tep_output_string($currency) . '" /><div class="btn-group" role="group"><button type="button" class="btn btn-default"><span itemprop="price" content="' . $currencies->display_raw($listing['products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '">' . $currencies->display_price($listing['products_price'], tep_get_tax_rate($listing['products_tax_class_id'])) . '</span></button></div></div>';
         }
       }
-    
+
       if (PRODUCT_LIST_BUY_NOW > 0) {
         $prod_list_contents .= '       <div class="col-xs-12 text-right">';
-        $prod_list_contents .=           tep_draw_button(IMAGE_BUTTON_BUY_NOW, 'fa fa-shopping-cart', tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . (int)$listing['products_id']), NULL, array('params' => 'data-has-attributes="' . ((tep_has_product_attributes((int)$listing['products_id']) === true) ? '1' : '0') . '" data-in-stock="' . (int)$listing['in_stock'] . '" data-product-id="' . (int)$listing['products_id'] . '"'), 'btn-success btn-product-listing btn-buy');
+        $prod_list_contents .=           tep_draw_button(IMAGE_BUTTON_BUY_NOW, 'fa fa-shopping-cart', tep_href_link(basename($PHP_SELF), tep_get_all_get_params(array('action')) . 'action=buy_now&products_id=' . (int)$listing['products_id']), NULL, array('params' => 'data-has-attributes="' . ((tep_has_product_attributes((int)$listing['products_id']) === true) ? '1' : '0') . '"data-in-stock="' .(int)$listing['in_stock'] . '" data-product-id="' . (int)$listing['products_id'] . '"'), 'btn-success btn-product-listing btn-buy');
         $prod_list_contents .= '       </div>';
       }
       $prod_list_contents .= '      </div>';

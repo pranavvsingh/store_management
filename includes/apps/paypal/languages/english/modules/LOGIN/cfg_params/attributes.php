@@ -17,7 +17,7 @@ cfg_login_attributes_attribute_city = City
 cfg_login_attributes_attribute_state = State
 cfg_login_attributes_attribute_country = Country
 cfg_login_attributes_attribute_zip_code = Zip Code
-cfg_login_attributes_attribute_phone = Telephone Number
+cfg_login_attributes_attribute_phone = Mobile Number
 
 cfg_login_attributes_attribute_account_status = Account Status (verified)
 cfg_login_attributes_attribute_account_type = Account Type

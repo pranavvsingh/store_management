@@ -110,7 +110,7 @@
       </tbody>
     </table>
 
-    <p class="text-right"><strong><?php echo SUB_TITLE_SUB_TOTAL; ?> <?php echo $currencies->format($cart->show_total()); ?></strong></p>
+    <!-- <p class="text-right"><strong><?php echo SUB_TITLE_SUB_TOTAL; ?> <?php echo $currencies->format($cart->show_total()); ?></strong></p> -->
 
 <?php
     if ($any_out_of_stock == 1) {

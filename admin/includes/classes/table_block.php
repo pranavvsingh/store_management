@@ -1,11 +1,11 @@
 <?php
 /*
-  $Id$
+  $Id: table_block.php,v 1.8 2003/06/20 15:51:18 hpdl Exp $
 
-  FieldMitr, Open Source E-Commerce Solutions
+  osCommerce, Open Source E-Commerce Solutions
   http://www.oscommerce.com
 
-  Copyright (c) 2003 FieldMitr
+  Copyright (c) 2003 osCommerce
 
   Released under the GNU General Public License
 */
@@ -18,9 +18,6 @@
     var $table_parameters = '';
     var $table_row_parameters = '';
     var $table_data_parameters = '';
-
-	function __construct() {
-	}
 
     function tableBlock($contents) {
       $tableBox_string = '';

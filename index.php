@@ -1,4 +1,5 @@
 <?php
+
 /*
   $Id$
 
@@ -37,7 +38,7 @@
   require('includes/template_top.php');
 
   if ($category_depth == 'nested') {
-    
+
     if ($messageStack->size('product_action') > 0) {
       echo $messageStack->output('product_action');
     }
@@ -62,7 +63,7 @@
 
 <?php
   } else { // default page
-  
+
     if ($messageStack->size('product_action') > 0) {
       echo $messageStack->output('product_action');
     }

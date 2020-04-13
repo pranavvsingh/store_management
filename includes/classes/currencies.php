@@ -70,9 +70,15 @@
     }
 
     function display_price($products_price, $products_tax, $quantity = 1) {
-      return $this->format($this->calculate_price($products_price, $products_tax, $quantity));
-    }
-    
+      if ($products_price > 0.01){ //for change price by 'contact'
+	       return $this->format(calculate_price($products_price, $products_tax) * $quantity);
+	    }else{
+	       return '🌟';
+	    }
+ }
+      // return $this->format($this->calculate_price($products_price, $products_tax, $quantity));
+
+
     function format_raw($number, $calculate_currency_value = true, $currency_type = '', $currency_value = '') {
       global $currency;
 
@@ -87,9 +93,9 @@
 
       return $format_string;
     }
-    
+
     function display_raw($products_price, $products_tax, $quantity = 1) {
       return $this->format_raw($this->calculate_price($products_price, $products_tax, $quantity));
-    }    
+    }
   }
 ?>

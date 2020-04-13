@@ -332,7 +332,7 @@ function check_form() {
 .btn {margin:1px;}
 </style>
 
-   
+
 <?php
   if ($action == 'edit' || $action == 'update') {
     $newsletter_array = array(array('id' => '1', 'text' => ENTRY_NEWSLETTER_YES),
@@ -345,16 +345,16 @@ function check_form() {
                     <h3><i class="fa fa-user"></i> <?php echo HEADING_TITLE; ?>
                     <span style="float:right"></span></h3>
                   </div>
-                  <div class="card-body">  
+                  <div class="card-body">
                     <div class="table-responsive">
                       <table class="table">
-                      <?php echo tep_draw_form('customers', 'customers.php', tep_get_all_get_params(array('action')) . 'action=update', 'post', 'onsubmit="return check_form();"') . tep_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>     
-                      <tbody>    
+                      <?php echo tep_draw_form('customers', 'customers.php', tep_get_all_get_params(array('action')) . 'action=update', 'post', 'onsubmit="return check_form();"') . tep_draw_hidden_field('default_address_id', $cInfo->customers_default_address_id); ?>
+                      <tbody>
       <tr>
-        
+
         <td colspan="2" class="formAreaTitle"><?php echo CATEGORY_PERSONAL; ?></td>
       </tr>
-      
+
 <?php
     if (ACCOUNT_GENDER == 'true') {
 ?>
@@ -453,16 +453,16 @@ $('#customers_dob').datepicker({
   }
 ?></td>
           </tr>
-        
+
 <?php
     if (ACCOUNT_COMPANY == 'true') {
 ?>
-    
+
       <tr>
         <td colspan="2" class="formAreaTitle"><?php echo CATEGORY_COMPANY; ?></td>
       </tr>
       <tr>
-      
+
             <td class="main"><?php echo ENTRY_COMPANY; ?></td>
             <td class="main">
 <?php
@@ -472,17 +472,17 @@ $('#customers_dob').datepicker({
       echo tep_draw_input_field('entry_company', $cInfo->entry_company, 'maxlength="32"');
     }
 ?></td>
-          
+
       </tr>
 <?php
     }
 ?>
-     
+
       <tr>
         <td colspan="2" class="formAreaTitle"><?php echo CATEGORY_ADDRESS; ?></td>
       </tr>
       <tr>
-       
+
             <td class="main"><?php echo ENTRY_STREET_ADDRESS; ?></td>
             <td class="main">
 <?php
@@ -590,14 +590,14 @@ $('#customers_dob').datepicker({
     echo tep_draw_pull_down_menu('entry_country_id', tep_get_countries(), $cInfo->entry_country_id);
   }
 ?></td>
-         
+
       </tr>
-     
+
       <tr>
         <td colspan="2" class="formAreaTitle"><?php echo CATEGORY_CONTACT; ?></td>
       </tr>
       <tr>
-        
+
             <td class="main"><?php echo ENTRY_TELEPHONE_NUMBER; ?></td>
             <td class="main">
 <?php
@@ -622,14 +622,14 @@ $('#customers_dob').datepicker({
     echo tep_draw_input_field('customers_fax', $cInfo->customers_fax, 'maxlength="32"');
   }
 ?></td>
-         
+
       </tr>
-    
+
       <tr>
         <td colspan="2" class="formAreaTitle"><?php echo CATEGORY_OPTIONS; ?></td>
       </tr>
       <tr>
-        
+
             <td class="main"><?php echo ENTRY_NEWSLETTER; ?></td>
             <td class="main">
 <?php
@@ -644,18 +644,18 @@ $('#customers_dob').datepicker({
     echo tep_draw_pull_down_menu('customers_newsletter', $newsletter_array, (($cInfo->customers_newsletter == '1') ? '1' : '0'));
   }
 ?></td>
-          
+
       </tr>
-     
+
       <tr>
         <td colspan="2" align="right" class="smallText"><?php echo tep_draw_button(IMAGE_SAVE, 'disk', null, 'primary', null, 'secondary') . ' ' . tep_draw_button(IMAGE_CANCEL, 'close', tep_href_link('customers.php', tep_get_all_get_params(array('action')))); ?></td>
       </tr></form>
 
-      </tbody>         
+      </tbody>
                     </table>
-                    </div>       
-            </div><!-- end card-body-->															
-        </div><!-- end card-->	
+                    </div>
+            </div><!-- end card-body-->
+        </div><!-- end card-->
   </div><!-- end col-->
 
   </div>
@@ -663,7 +663,7 @@ $('#customers_dob').datepicker({
 <?php
   } else {
 ?>
-     
+
 <div class="row">
   <div class="col-sm-9">
         <div class="card mb-3">
@@ -671,7 +671,7 @@ $('#customers_dob').datepicker({
                     <h3><i class="fa fa-user"></i> <?php echo HEADING_TITLE; ?>
                     <span style="float:right"><?php echo tep_draw_input_field('search'); ?><?php echo tep_hide_session_id(); ?></form></span></h3>
                   </div>
-                  <div class="card-body">  
+                  <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-sm table-hover">
                       <thead>
@@ -682,8 +682,8 @@ $('#customers_dob').datepicker({
                           <th class="text-right" scope="col"><?php echo TABLE_HEADING_ACTION; ?></th>
                         </tr>
                       </thead>
-                      <tbody>     
-     
+                      <tbody>
+
 <?php
     $search = '';
     if (isset($_GET['search']) && tep_not_null($_GET['search'])) {
@@ -724,12 +724,12 @@ $('#customers_dob').datepicker({
 <?php
     }
 ?>
-           
 
-           </tbody>         
-        </table>   
+
+           </tbody>
+        </table>
         <table class="table">
-            
+
                   <tr>
                     <td class="smallText" valign="top"><?php echo $customers_split->display_count($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, $_GET['page'], TEXT_DISPLAY_NUMBER_OF_CUSTOMERS); ?></td>
                     <td class="smallText" align="right"><?php echo $customers_split->display_links($customers_query_numrows, MAX_DISPLAY_SEARCH_RESULTS, MAX_DISPLAY_PAGE_LINKS, $_GET['page'], tep_get_all_get_params(array('page', 'info', 'x', 'y', 'cID'))); ?></td>
@@ -744,9 +744,9 @@ $('#customers_dob').datepicker({
     }
 ?>
               </table>
-              </div>       
-            </div><!-- end card-body-->															
-        </div><!-- end card-->	
+              </div>
+            </div><!-- end card-body-->
+        </div><!-- end card-->
   </div><!-- end col-->
 <?php
   $heading = array();
@@ -778,22 +778,22 @@ $('#customers_dob').datepicker({
 
   if ( (tep_not_null($heading)) && (tep_not_null($contents)) ) {
     ?>
-    
+
         <div class="col-sm-3">
         <div class="card mb-3">
             <div class="card-header">
               <h3><?php echo $heading[0]['text']; ?></h3>
             </div>
-            <div class="card-body card-bg">  
+            <div class="card-body card-bg">
                 <?php
                   $box = new box;
                   $heading[0]['text'] = '';
                   echo $box->infoBox($heading, $contents);
                 ?>
-              </div><!-- end card-body-->															
-            </div><!-- end card-->	
+              </div><!-- end card-body-->
+            </div><!-- end card-->
       </div><!-- end col-->
-    
+
       <?php
       }
     ?>
@@ -818,7 +818,7 @@ $('input[name="customers_dob"]').datepicker({
 </script>
 <script>
   $(document).ready(function () {
-    
+
 
 
 
@@ -832,11 +832,11 @@ $('input[name="customers_dob"]').datepicker({
             format: 'MM/DD/YYYY'
         }
     });
-  
+
     $('input[name="customers_dob"]').on('apply.daterangepicker', function(ev, picker) {
         $(this).val(picker.startDate.format('MM/DD/YYYY'));
     });
-  
+
     $('input[name="customers_dob"]').on('cancel.daterangepicker', function(ev, picker) {
         $(this).val('');
     });
