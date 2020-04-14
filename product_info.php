@@ -31,7 +31,7 @@
   <div class="row">
     <?php echo $oscTemplate->getContent('product_info_not_found'); ?>
   </div>
-  
+
 </div>
 
 <?php

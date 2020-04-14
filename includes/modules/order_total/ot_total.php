@@ -17,7 +17,7 @@
       $this->code = 'ot_total';
       $this->title = MODULE_ORDER_TOTAL_TOTAL_TITLE;
       $this->description = MODULE_ORDER_TOTAL_TOTAL_DESCRIPTION;
-      
+
       if ( defined('MODULE_ORDER_TOTAL_TOTAL_STATUS') ) {
         $this->enabled = ((MODULE_ORDER_TOTAL_TOTAL_STATUS == 'true') ? true : false);
         $this->sort_order = MODULE_ORDER_TOTAL_TOTAL_SORT_ORDER;
@@ -29,9 +29,9 @@
     function process() {
       global $order, $currencies;
 
-      $this->output[] = array('title' => $this->title . ':',
-                              'text' => '<strong>' . $currencies->format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']) . '</strong>',
-                              'value' => $order->info['total']);
+      // $this->output[] = array('title' => $this->title . ':',
+      //                         'text' => '<strong>' . $currencies->format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']) . '</strong>',
+      //                         'value' => $order->info['total']);
     }
 
     function check() {

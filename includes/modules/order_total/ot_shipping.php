@@ -17,7 +17,7 @@
       $this->code = 'ot_shipping';
       $this->title = MODULE_ORDER_TOTAL_SHIPPING_TITLE;
       $this->description = MODULE_ORDER_TOTAL_SHIPPING_DESCRIPTION;
-      
+
       if ( defined('MODULE_ORDER_TOTAL_SHIPPING_STATUS') ) {
         $this->enabled = ((MODULE_ORDER_TOTAL_SHIPPING_STATUS == 'true') ? true : false);
         $this->sort_order = MODULE_ORDER_TOTAL_SHIPPING_SORT_ORDER;

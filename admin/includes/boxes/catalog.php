@@ -18,7 +18,7 @@
         'title' => BOX_CATALOG_CATEGORIES_PRODUCTS,
         'link' => tep_href_link('categories.php')
       ),
-    
+
       array(
         'code' => 'products_attributes.php',
         'title' => BOX_CATALOG_CATEGORIES_PRODUCTS_ATTRIBUTES,
@@ -39,6 +39,8 @@
         'title' => BOX_CATALOG_SPECIALS,
         'link' => tep_href_link('specials.php')
       ),
+    
+
       // array(
       //   'code' => 'products_expected.php',
       //   'title' => BOX_CATALOG_PRODUCTS_EXPECTED,

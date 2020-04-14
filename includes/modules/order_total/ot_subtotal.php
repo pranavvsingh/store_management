@@ -17,7 +17,7 @@
       $this->code = 'ot_subtotal';
       $this->title = MODULE_ORDER_TOTAL_SUBTOTAL_TITLE;
       $this->description = MODULE_ORDER_TOTAL_SUBTOTAL_DESCRIPTION;
-      
+
       if ( defined('MODULE_ORDER_TOTAL_SUBTOTAL_STATUS') ) {
         $this->enabled = ((MODULE_ORDER_TOTAL_SUBTOTAL_STATUS == 'true') ? true : false);
         $this->sort_order = MODULE_ORDER_TOTAL_SUBTOTAL_SORT_ORDER;
@@ -29,9 +29,9 @@
     function process() {
       global $order, $currencies;
 
-      $this->output[] = array('title' => $this->title . ':',
-                              'text' => $currencies->format($order->info['subtotal'], true, $order->info['currency'], $order->info['currency_value']),
-                              'value' => $order->info['subtotal']);
+      // $this->output[] = array('title' => $this->title . ':',
+      //                         'text' => $currencies->format($order->info['subtotal'], true, $order->info['currency'], $order->info['currency_value']),
+      //                         'value' => $order->info['subtotal']);
     }
 
     function check() {

@@ -9,7 +9,9 @@
 
   Released under the GNU General Public License
 */
-
+$Quantity = "Quantity";
+$SR = "Sr.";
+error_reporting(E_ERROR | E_PARSE);
   require('includes/application_top.php');
 
 // if the customer is not logged on, redirect them to the login page
@@ -114,14 +116,21 @@
     <div class="panel panel-default">
       <div class="panel-heading"><?php echo '<strong>' . HEADING_PRODUCTS . '</strong>' . tep_draw_button(TEXT_EDIT, 'fa fa-edit', tep_href_link('shopping_cart.php'), NULL, NULL, 'pull-right btn-info btn-xs' ); ?></div>
       <div class="panel-body">
-    <table width="100%" class="table-hover order_confirmation">
+    <table width="100%" class="table table-bordered">
      <tbody>
 
+       <tr>
+         <td colspan="1"><strong><?php echo $SR; ?></strong></td>
+         <td colspan="right"><strong><?php echo HEADING_PRODUCTS; ?></strong></td>
+         <td align="right"><strong><?php echo $Quantity ?></strong></td>
+       </tr>
+
 <?php
+
   for ($i=0, $n=sizeof($order->products); $i<$n; $i++) {
-  
+
     echo '          <tr>' . "\n" .
-         '            <td align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x&nbsp;</td>' . "\n" .
+         '            <td align="right" valign="top" width="30">' . ($i+1) . '</td>' . "\n" .
          '            <td valign="top">' . $order->products[$i]['name'];
 
     if (STOCK_CHECK == 'true') {
@@ -137,9 +146,9 @@
     echo '</td>' . "\n";
 
     if (sizeof($order->info['tax_groups']) > 1) echo '            <td valign="top" align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
-
-    echo '            <td align="right" valign="top">' . $currencies->display_price($order->products[$i]['final_price'], $order->products[$i]['tax'], $order->products[$i]['qty']) . '</td>' . "\n" .
-         '          </tr>' . "\n";
+      //hideprice
+      echo '            <td align="right" valign="top">' . $order->products[$i]['qty'] . '</td>' . "\n" .
+           '          </tr>' . "\n";
   }
 
 
@@ -153,7 +162,8 @@
 
 <?php
   if (MODULE_ORDER_TOTAL_INSTALLED) {
-    echo $order_total_modules->output();
+    //hideprice
+    // echo $order_total_modules->output();
   }
 ?>
 

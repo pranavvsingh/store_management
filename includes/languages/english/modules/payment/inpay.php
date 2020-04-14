@@ -29,7 +29,7 @@ With inpay there is no risk of credit card fraud or any kind of chargebacks. Thi
   <a href="http://inpay.com/" style="text-decoration: underline;" target="_blank">Read more or signup at inpay.com</a><br />');
   // ------------- e-mail settings ---------------------------------
   define('EMAIL_TEXT_SUBJECT', 'Payment confirmed by inpay');
-  define('EMAIL_TEXT_ORDER_NUMBER', 'Order Number:');
+  define('EMAIL_TEXT_ORDER_NUMBER', 'Order Id:');
   define('EMAIL_TEXT_INVOICE_URL', 'Detailed Invoice:');
   define('EMAIL_TEXT_DATE_ORDERED', 'Date Ordered:');
   define('EMAIL_TEXT_PRODUCTS', 'Products');

@@ -9,6 +9,8 @@
 
   Released under the GNU General Public License
 */
+$Quantity = "Quantity";
+$SR = "Sr.";
   error_reporting(E_ERROR | E_PARSE);
   require('includes/application_top.php');
 
@@ -52,7 +54,7 @@
       <div class="panel-heading"><strong><?php echo sprintf(HEADING_ORDER_NUMBER, $_GET['order_id']) . ' <span class="badge pull-right">' . $order->info['orders_status'] . '</span>'; ?></strong></div>
       <div class="panel-body">
 
-        <table border="0" width="100%" cellspacing="0" cellpadding="2" class="table-hover order_confirmation">
+        <table border="0" width="100%" cellspacing="0" cellpadding="2" class="table table-bordered">
 <?php
   if (sizeof($order->info['tax_groups']) > 1) {
 ?>
@@ -65,8 +67,11 @@
   } else {
 ?>
           <tr>
-            <td colspan="2"><strong><?php echo HEADING_PRODUCTS; ?></strong></td>
-            <td align="right"><strong><?php echo HEADING_TOTAL; ?></strong></td>
+            <td colspan="1"><strong><?php echo $SR; ?></strong></td>
+            <td colspan="right"><strong><?php echo HEADING_PRODUCTS; ?></strong></td>
+            <!-- hideprice -->
+            <!-- <td align="right"><strong><?php echo $SR?></strong></td> -->
+            <td align="right"><strong><?php echo $Quantity ?></strong></td>
           </tr>
 <?php
   }
@@ -75,7 +80,7 @@
 
 
     echo '          <tr>' . "\n" .
-         '            <td align="right" valign="top" width="30">' . $order->products[$i]['qty'] . '&nbsp;x&nbsp;</td>' . "\n" .
+         '            <td align="right" valign="top" width="30">' . ($i+1) . '</td>' . "\n" .
          '            <td valign="top">' . $order->products[$i]['name'];
 
     if ( (isset($order->products[$i]['attributes'])) && (sizeof($order->products[$i]['attributes']) > 0) ) {
@@ -90,7 +95,8 @@
       echo '            <td valign="top" align="right">' . tep_display_tax_value($order->products[$i]['tax']) . '%</td>' . "\n";
     }
 
-    echo '            <td align="right" valign="top">' . $currencies->format(tep_add_tax($order->products[$i]['final_price'], $order->products[$i]['tax']) * $order->products[$i]['qty'], true, $order->info['currency'], $order->info['currency_value']) . '</td>' . "\n" .
+    //hideprice
+    echo '            <td align="right" valign="top">' . $order->products[$i]['qty'] . '</td>' . "\n" .
          '          </tr>' . "\n";
   }
 ?>
@@ -99,10 +105,11 @@
         <table width="100%" class="pull-right">
 <?php
   for ($i=0, $n=sizeof($order->totals); $i<$n; $i++) {
-    echo '          <tr>' . "\n" .
-         '            <td align="right" width="100%">' . $order->totals[$i]['title'] . '&nbsp;</td>' . "\n" .
-         '            <td align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .
-         '          </tr>' . "\n";
+    //hideprice
+    // echo '          <tr>' . "\n" .
+    //      '            <td align="right" width="100%">' . $order->totals[$i]['title'] . '&nbsp;</td>' . "\n" .
+    //      '            <td align="right">' . $order->totals[$i]['text'] . '</td>' . "\n" .
+    //      '          </tr>' . "\n";
   }
 ?>
         </table>
@@ -110,7 +117,8 @@
 
 
       <div class="panel-footer">
-        <span class="pull-right hidden-xs"><?php echo HEADING_ORDER_TOTAL . ' ' . $order->info['total']; ?></span><?php echo HEADING_ORDER_DATE . ' ' . tep_date_long($order->info['date_purchased']); ?>
+        <!-- <span class="pull-right hidden-xs"><?php echo HEADING_ORDER_TOTAL . ' ' . $order->info['total']; ?></span><?php echo HEADING_ORDER_DATE . ' ' . tep_date_long($order->info['date_purchased']); ?> -->
+        <span class="pull-right hidden-xs"></span><?php echo HEADING_ORDER_DATE . ' ' . tep_date_long($order->info['date_purchased']); ?>
       </div>
     </div>
   </div>

@@ -189,7 +189,7 @@
                     <h3><i class="fa fa-lock"></i> <?php echo HEADING_TITLE; ?>
                     <span style="float:right"></span></h3>
                   </div>
-                  <div class="card-body"> 
+                  <div class="card-body">
                   <div class="table-responsive">
                       <table class="table table-sm table-hover">
                       <thead>
@@ -240,9 +240,9 @@
               </tr>
               </tbody>
             </table>
-            </div>       
-            </div><!-- end card-body-->															
-        </div><!-- end card-->	
+            </div>
+            </div><!-- end card-body-->
+        </div><!-- end card-->
   </div><!-- end col-->
 <?php
   $heading = array();
@@ -301,14 +301,14 @@
         <div class="card-header">
           <h3><?php echo $heading[0]['text']; ?></h3>
         </div>
-        <div class="card-body">  
+        <div class="card-body">
             <?php
               $box = new box;
               $heading[0]['text'] = '';
               echo $box->infoBox($heading, $contents);
             ?>
-          </div><!-- end card-body-->															
-        </div><!-- end card-->	
+          </div><!-- end card-body-->
+        </div><!-- end card-->
   </div><!-- end col-->
   <?php
   }
@@ -321,12 +321,12 @@
                     <h3><i class="fa fa-lock"></i> Additional Protection
                     <span style="float:right"></span></h3>
                   </div>
-                  <div class="card-body card-bg"> 
+                  <div class="card-body card-bg">
 <?php
   echo $secMessageStack->output();
 ?>
-                  </div><!-- end card-body-->															
-        </div><!-- end card-->	
+                  </div><!-- end card-body-->
+        </div><!-- end card-->
   </div><!-- end col-->
 </div>
 <?php

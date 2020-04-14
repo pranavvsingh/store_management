@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<!--
+  osCommerce, Open Source E-Commerce Solutions
+  http://www.oscommerce.com
+
+  Copyright (c) 2003 osCommerce
+
+  Released under the GNU General Public License
+
+	04/15/07
+	Edit By Gary Darling-->
+<head>
+<style type="text/css" media="screen">
+a {text-decoration:none}
+pre.exampletext {background-color: #FFFFCC; border:dotted 1px #9aaab4;padding:1em;margin:0 6px 0 10px}
+#container {width:900px;margin:0 auto;padding:0 10px;color:#222222; font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;border:1px solid #BBBBBB;background-color:#E2F1F1}
+.filename {font-family: "Courier New", Courier, monospace;color:#FF0000}
+.right { float:right; text-transform:uppercase; font-size:11px}
+strong {color:red}
+</style>
+<style type="text/css" media="print">
+a {text-decoration:none;color:#000000}
+.right {display:none}
+.noprint {display:none}
+</style>
+<title>Hide Prices in OSCommerce</title>
+</head>
+<body>
+<a name="top" id="top"></a>
+<div id="container">
+<h1>Toggle Price Display</h1>
+
+<p>Some stores may not want to show their prices, such as in the case of a wholesale supplier, or perhaps you want the customer to call for pricing on certain items. This document leads you through the steps necessary to turn off the price display in all pages and modules included in a standard installation. It is all done via CSS, so the only modifications needed to your PHP code is the addition of a CSS class in the various presentation sections. No changes are made to any SQL queries or business functions.</p>
+
+<p>Here is the list of files you will need to modify. As always, it is highly recommended you make a backup of these files before making these changes. <span class="noprint">Jump to each instruction set by clicking on the list item below:</span></p>
+<ul>
+	<li><a href="#stylesheet" tabindex="1">stylesheet.css</a></li>
+	<li><a href="#shoppingcart1" tabindex="2">includes/boxes/shopping_cart.php</a></li>
+	<li><a href="#shoppingcart2" tabindex="3">shopping_cart.php</a></li>
+	<li><a href="#productinfo" tabindex="4">product_info.php</a></li>
+	<li><a href="#specials" tabindex="5	">includes/boxes/specials.php</a></li>
+	<li><a href="#whatsnew" tabindex="6">includes/boxes/whats_new.php</a></li>
+	<li><a href="#checkout" tabindex="7">checkout_confirmation.php</a></li>	
+	<li><a href="#newproducts" tabindex="8">products_new.php</a></li>
+	<li><a href="#reviews" tabindex="9">product_reviews.php</a></li>
+	<li><a href="#reviewsinfo" tabindex="10">products_reviews_info.php</a></li>
+	<li><a href="#reviewswrite" tabindex="11">product_reviews_write.php</a></li>
+</ul>
+<hr/>
+
+<h3><a name="stylesheet" id="stylesheet">To hide prices in your store, you first need to create a class in the stylesheet that handles this:</a></h3>
+
+<p>Open up <span class="filename">stylesheet.css</span> and add the following class: <a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#shoppingcart1">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+.hidePrices {
+	display:none;
+}
+</pre>
+<p>This allows you to quickly turn them all back on if you change your mind later. Alternatively, you could creat a separate class for each module, which would allow you to turn price displays on or off individually.</p>
+<hr/>
+ 
+<h3><a name="shoppingcart1" id="shoppingcart1">To hide prices in the shopping cart:</a></h3>
+<p>In the file <span class="filename" >includes/boxes/shopping_cart.php</span>, find the following code block starting at around line 58:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#shoppingcart2">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+ if ($cart-&gt;count_contents() &gt; 0) {
+   $info_box_contents[] = array('text' =&gt; tep_draw_separator());
+   $info_box_contents[] = array('align' =&gt; 'right',
+                                'text' =&gt; $currencies-&gt;format($cart-&gt;show_total()));
+ } 
+</pre>
+<p>Add the &quot;hidePrices&quot; class by wrapping it around the word &quot;text&quot; as shown below:</p>
+<pre class="exampletext">
+ if ($cart-&gt;count_contents() &gt; 0) {
+   $info_box_contents[] = array('text' =&gt; tep_draw_separator());
+   $info_box_contents[] = array('align' =&gt; 'right',
+               '<strong>&lt;span class=&quot;hidePrices&quot;&gt;</strong>;text<strong>&lt;/span&gt;</strong>' =&gt; $currencies-&gt;format($cart-&gt;show_total()));
+ } 
+</pre>
+
+<p>In the file <a name="shoppingcart2" class="filename">shopping_cart.php</a> find the following text at around line 71:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#productinfo">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+    $info_box_contents[0][] = array('align' =&gt; 'right',
+                                    'params' =&gt; 'class=&quot;productListing-heading&quot;',
+                                    'text' =&gt; TABLE_HEADING_TOTAL);
+</pre>
+<p>Do the same thing to the word 'text' as shown below:</p>
+<pre class="exampletext">
+    $info_box_contents[0][] = array('align' =&gt; 'right',
+                                    'params' =&gt; 'class=&quot;productListing-heading&quot;',
+          '<strong>&lt;span class=&quot;hidePrices&quot;&gt;</strong>text<strong>&lt;/span&gt;</strong>' =&gt; TABLE_HEADING_TOTAL);
+</pre>
+<p>This will remove the <strong>Price</strong> column from the display.</p>
+<hr/>
+
+<h3><a name="productinfo">To hide prices in the product info pages:</a></h3>
+
+<p>Open <span class="filename">product_info.php</span> and look for the following code at about line 93:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#specials">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+       &lt;td class=&quot;pageHeading&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;?php echo $products_price; ?&gt;&lt;/td&gt;&quot; 
+</pre>
+<p>and add the &quot;hidePrices&quot; class after the existing &quot;pageHeading&quot; class as shown:</p>
+<pre class="exampletext">
+       &lt;td class=&quot;pageHeading <strong>hidePrices</strong>&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;?php echo $products_price; ?&gt;&lt;/td&gt; 
+</pre>
+<hr/>
+
+<h3><a name="specials">To turn off price display in the &quot;Specials&quot; box:</a></h3>
+
+<p>In the file <span class="filename">includes/boxes/specials.php</span>, find the following code block starting at around line 24:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#whatsnew">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' =&gt; 'center',
+                                 'text' =&gt; '&lt;a href=&quot;' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' <br/>
+. $random_product[&quot;products_id&quot;]) . '&quot;&gt;' . tep_image(DIR_WS_IMAGES . $random_product['products_image'],<br/>
+ $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;' <br/>
+. tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id']) . '&quot;&gt;'<br/>
+ . $random_product['products_name'] . '&lt;/a&gt;&lt;br&gt;&lt;s&gt;' <br/>
+. $currencies-&gt;display_price($random_product['products_price'], <br/>
+tep_get_tax_rate($random_product['products_tax_class_id'])) . '&lt;/span&gt;&lt;/s&gt;&lt;br&gt;<br/>
+&lt;span class=&quot;productSpecialPrice&quot;&gt;' . $currencies-&gt;<br/>
+display_price($random_product['specials_new_products_price'], <br/>
+tep_get_tax_rate($random_product['products_tax_class_id'])) . '&lt;/span&gt;');
+</pre>
+<p>and add the &quot;hidePrices&quot; class as shown. Be careful not to add any spaces or line breaks in the surrounding code:</p>
+<pre class="exampletext">
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' =&gt; 'center',
+                                 'text' =&gt; '&lt;a href=&quot;' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' <br/>
+. $random_product[&quot;products_id&quot;]) . '&quot;&gt;' . tep_image(DIR_WS_IMAGES . $random_product['products_image'],<br/>
+ $random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;' <br/>
+. tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id']) . '&quot;&gt;'<br/>
+ . $random_product['products_name'] . '&lt;/a&gt;&lt;br&gt;<strong>&lt;span class=&quot;hidePrices&quot;&gt;</strong>&lt;s&gt;' <br/>
+. $currencies-&gt;display_price($random_product['products_price'], <br/>
+tep_get_tax_rate($random_product['products_tax_class_id'])) . '&lt;/s&gt;<strong>&lt;/span&gt;</strong>&lt;br&gt;<br/>
+&lt;span class=&quot;productSpecialPrice <strong>hidePrices</strong>&quot;&gt;' . $currencies-&gt;<br/>
+display_price($random_product['specials_new_products_price'], <br/>
+tep_get_tax_rate($random_product['products_tax_class_id'])) . '&lt;/span&gt;');
+
+</pre>
+<hr/>
+
+<h3><a name="whatsnew">To turn off price display in the &quot;What's New&quot; box:</a></h3>
+
+<p>Open the file <span class="filename">includes/boxes/whats_new.php</span> and find the following code starting at around line 34:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#checkout">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' =&gt; 'center',
+                                 'text' =&gt; '&lt;a href=&quot;' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id='<br/>
+ . $random_product['products_id']) . '&quot;&gt;' . tep_image(DIR_WS_IMAGES . $random_product['products_image'], <br/>
+$random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;' . <br/>
+tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id']) . '&quot;&gt;' . <br/>
+$random_product['products_name'] . '&lt;/a&gt;&lt;br&gt;' . $whats_new_price);
+</pre>
+<p>Add the class&quot;hidePrices&quot; as shown below:</p>
+<pre class="exampletext">
+    $info_box_contents = array();
+    $info_box_contents[] = array('align' =&gt; 'center',
+                                 'text' =&gt; '&lt;a href=&quot;' . tep_href_link(FILENAME_PRODUCT_INFO, 'products_id='<br/>
+ . $random_product['products_id']) . '&quot;&gt;' . tep_image(DIR_WS_IMAGES . $random_product['products_image'], <br/>
+$random_product['products_name'], SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) . '&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;' . <br/>
+tep_href_link(FILENAME_PRODUCT_INFO, 'products_id=' . $random_product['products_id']) . '&quot;&gt;' . <br/>
+$random_product['products_name'] . '&lt;/a&gt;&lt;br&gt;<strong>&lt;span class=&quot;hidePrices&quot;&gt;</strong>' . $whats_new_price<strong> . '&lt;/span&gt;'</strong>);
+</pre>
+<p>Make sure you wrap the closing <strong>&lt;span&gt;</strong> tag in single quotes, and add a space + period after <strong class="filename">$whats_new_price</strong>. If your code breaks after uploading this modified file, it is likely due to a misplaced period or quote. Pay very close attention to the order and spacing; better yet, copy this code and paste it over yours. </p>
+
+<hr/>
+<h3><a name="checkout">To hide prices in the Checkout Confirmation:</a></h3>
+<p>Open the file <span class="filename">checkout_confirmation.php</span> and find the following code starting at about line 191:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#newproducts">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+    echo '            &lt;td class=&quot;main&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;' <br/>
+. $currencies-&gt;display_price($order-&gt;products[$i]['final_price'], $order-&gt;products[$i]['tax'],<br/>
+ $order-&gt;products[$i]['qty']) . '&lt;/td&gt;' . &quot;\n&quot; .
+</pre>
+<p> Add the class &quot;hidePrices&quot; after the existing class as shown below:</p>
+<pre class="exampletext">
+    echo '            &lt;td class=&quot;main <strong>hidePrices</strong>&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;' <br/>
+. $currencies-&gt;display_price($order-&gt;products[$i]['final_price'], $order-&gt;products[$i]['tax'],<br/>
+ $order-&gt;products[$i]['qty']) . '&lt;/td&gt;' . &quot;\n&quot; .
+</pre>
+<p>This turns off the unit prices in the top half of the page. Now go to line 227 and find the following code:</p>
+<pre class="exampletext">
+  	&lt;td width=&quot;70%&quot; valign=&quot;top&quot; align=&quot;right&quot;&gt;<br/>
+	&lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;2&quot;&gt;
+</pre>
+<p>And add the class &quot;hidePrices&quot; as shown below:</p>
+<pre class="exampletext">
+  	&lt;td <strong>class=&quot;hidePrices&quot;</strong> width=&quot;70%&quot; valign=&quot;top&quot; align=&quot;right&quot;&gt;<br/>
+	&lt;table border=&quot;0&quot; cellspacing=&quot;0&quot; cellpadding=&quot;2&quot;&gt;
+</pre>
+<p>This turns off the subtotal and shipping pricing in the lower section.</p> 
+<hr/>
+<h3><a name="newproducts">To hide prices in the New Products module:</a></h3>
+<p> Open the file <span class="filename">products_new.php</span> and find the following code starting at about line 89:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#reviews">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+            &lt;td valign=&quot;top&quot; class=&quot;main&quot;&gt;&lt;?php echo '&lt;a href=&quot;' . tep_href_link(FILENAME_PRODUCT_INFO, <br/>
+'products_id=' . $products_new['products_id']) . '&quot;&gt;&lt;b&gt;&lt;u&gt;' . $products_new['products_name'] .<br/>
+ '&lt;/u&gt;&lt;/b&gt;&lt;/a&gt;&lt;br&gt;' . TEXT_DATE_ADDED . ' ' . tep_date_long($products_new['products_date_added']) .<br/>
+ '&lt;br&gt;' . TEXT_MANUFACTURER . ' ' . $products_new['manufacturers_name'] . '&lt;br&gt;&lt;br&gt;' . TEXT_PRICE . '' . <br/>
+$products_price; ?&gt;&lt;/td&gt;
+</pre>
+<p>Add the &quot;hidePrices&quot; class as shown below:</p>
+<pre class="exampletext">
+            &lt;td valign=&quot;top&quot; class=&quot;main&quot;&gt;&lt;?php echo '&lt;a href=&quot;' . tep_href_link(FILENAME_PRODUCT_INFO, <br/>
+'products_id=' . $products_new['products_id']) . '&quot;&gt;&lt;b&gt;&lt;u&gt;' . $products_new['products_name'] .<br/>
+ '&lt;/u&gt;&lt;/b&gt;&lt;/a&gt;&lt;br&gt;' . TEXT_DATE_ADDED . ' ' . tep_date_long($products_new['products_date_added']) .<br/>
+ '&lt;br&gt;' . TEXT_MANUFACTURER . ' ' . $products_new['manufacturers_name'] . '&lt;br&gt;&lt;br&gt;<br/>
+<strong>&lt;span class=&quot;hidePrices&quot;&gt;</strong>' . TEXT_PRICE . '' . $products_price <strong>. '&lt;/span&gt; '</strong>; ?&gt;&lt;/td&gt;
+</pre>
+<p>Again, make sure you wrap the closing <strong>&lt;span&gt;</strong> tag in single quotes, and add a space + period + space after <strong class="filename">$products_price</strong>.</p>
+<hr/>
+<h3><a name="reviews">To turn off prices in the Product Review module, you need to change 3 files:</a></h3>
+<p>Open the file <span class="filename">product_reviews.php</span> and look for the following code at around line 70:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#reviewsinfo">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+    &lt;td class=&quot;pageHeading&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;?php echo $products_price; ?&gt;&lt;/td&gt;
+</pre>
+<p>Add the &quot;hidePrices&quot; class as shown below</p>
+<pre class="exampletext">
+     &lt;td class=&quot;pageHeading <strong>hidePrices</strong>&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;?php echo $products_price; ?&gt;&lt;/td&gt;
+</pre>
+<p>Now open the file <a name="reviewsinfo" class="filename">products_reviews_info.php</a> and make a similar change at around line 79:<a class="right" href="#top">&lt;Back to Top&gt;</a> <a class="right" href="#reviewswrite">&lt;Next file&gt;</a></p>
+<pre class="exampletext">
+    &lt;td class=&quot;pageHeading <strong>hidePrices</strong>&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;?php echo $products_price; ?&gt;&lt;/td&gt;
+</pre>
+<p>And finally, open the file <a name="reviewswrite" class="filename">product_reviews_write.php</a> and make a similar change at around line 130:<a class="right" href="#top">&lt;Back to Top&gt;</a></p>
+<pre class="exampletext">
+    &lt;td class=&quot;pageHeading <strong>hidePrices</strong>&quot; align=&quot;right&quot; valign=&quot;top&quot;&gt;&lt;?php echo $products_price; ?&gt;&lt;/td&gt;
+
+</pre>
+<p>And I believe that does it. This same technique can be applied to any contributions or custom modules and pages you may have designed. By leaving the queries and logic that return the prices alone, and only hiding the display of the prices, you assure that reverting back to a full price display is achieved simply and cleanly, by commenting out or deleting the <span class="filename">display:none</span> attribute of the hidePrices class in <span class="filename">stylesheet.css</span>.</p>
+</div>
+</body>
+</html>

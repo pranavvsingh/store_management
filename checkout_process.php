@@ -9,7 +9,6 @@
 
   Released under the GNU General Public License
 */
-
   include('includes/application_top.php');
 
 // if the customer is not logged on, redirect them to the login page
@@ -74,7 +73,6 @@
 
   require('includes/classes/order_total.php');
   $order_total_modules = new order_total;
-
   $order_totals = $order_total_modules->process();
 
 // load the before_process function from the payment modules
@@ -237,14 +235,15 @@
       }
     }
 //------insert customer choosen option eof ----
-    $products_ordered .= $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . ' (' . $order->products[$i]['model'] . ') = ' . $currencies->display_price($order->products[$i]['final_price'], $order->products[$i]['tax'], $order->products[$i]['qty']) . $products_ordered_attributes . "\n";
+    //hideprices
+   $products_ordered .= $order->products[$i]['qty'] . ' x ' . $order->products[$i]['name'] . $products_ordered_attributes . "\n";
   }
 
 // lets start with the email confirmation
+  //hideprices
   $email_order = STORE_NAME . "\n" .
                  EMAIL_SEPARATOR . "\n" .
                  EMAIL_TEXT_ORDER_NUMBER . ' ' . $insert_id . "\n" .
-                 EMAIL_TEXT_INVOICE_URL . ' ' . tep_href_link('account_history_info.php', 'order_id=' . $insert_id, 'SSL', false) . "\n" .
                  EMAIL_TEXT_DATE_ORDERED . ' ' . strftime(DATE_FORMAT_LONG) . "\n\n";
   if ($order->info['comments']) {
     $email_order .= tep_db_output($order->info['comments']) . "\n\n";
@@ -255,8 +254,10 @@
                   EMAIL_SEPARATOR . "\n";
 
   for ($i=0, $n=sizeof($order_totals); $i<$n; $i++) {
+    //hideprices
     $email_order .= strip_tags($order_totals[$i]['title']) . ' ' . strip_tags($order_totals[$i]['text']) . "\n";
   }
+
 
   if ($order->content_type != 'virtual') {
     $email_order .= "\n" . EMAIL_TEXT_DELIVERY_ADDRESS . "\n" .
@@ -276,38 +277,52 @@
       $email_order .= $payment_class->email_footer . "\n\n";
     }
   }
-  //phone1
 
 
-  //phone2
-  $customerPhone = '91'.$order->customer['telephone'];
-  $orderdata = json_encode(array(
-      'chatId'=>$customerPhone.'@c.us',
-      'body'=> $email_order,
-  ));
-  $url = 'https://eu114.chat-api.com/instance114865/sendMessage?token=he9w6p7nasd3vpup';
-  $options1 = stream_context_create(['http' => [
-      'method'  => 'POST',
-      'header'  => 'Content-type: application/json',
-      'content' => $orderdata
-  ]
-  ]);
-  $response1 = file_get_contents($url,false,$options1);
+    $customerPhone = '91'.$order->customer['telephone'];
+    $orderdata = json_encode(array(
+        'chatId'=>$customerPhone.'@c.us',
+        'body'=> $email_order,
+    ));
+    $url = 'https://eu116.chat-api.com/instance116595/sendMessage?token=kyhcu6fb3htxx2xe';
+    $options1 = stream_context_create(['http' => [
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/json',
+        'content' => $orderdata
+    ]
+    ]);
+    $response1 = file_get_contents($url,false,$options1);
 
 
-  $adminPhone = '91'.STORE_PHONE;
-  $orderdata = json_encode(array(
-      'chatId'=>$adminPhone.'@c.us',
-      'body'=> $email_order,
-  ));
-  $url = 'https://eu114.chat-api.com/instance114865/sendMessage?token=he9w6p7nasd3vpup';
-  $options2 = stream_context_create(['http' => [
-      'method'  => 'POST',
-      'header'  => 'Content-type: application/json',
-      'content' => $orderdata
-  ]
-  ]);
-  $response2 = file_get_contents($url,false,$options2);
+    $adminPhone = '91'.STORE_PHONE;
+    $orderdata = json_encode(array(
+        'chatId'=>$adminPhone.'@c.us',
+        'body'=> $email_order,
+    ));
+    $url = 'https://eu116.chat-api.com/instance116595/sendMessage?token=kyhcu6fb3htxx2xe';
+    $options2 = stream_context_create(['http' => [
+        'method'  => 'POST',
+        'header'  => 'Content-type: application/json',
+        'content' => $orderdata
+    ]
+    ]);
+    $response2 = file_get_contents($url,false,$options2);
+
+  // $username = "pranavvsingh46@gmail.com";
+	// $hash = "45abc9ea147c660da5f80c936f0180059b8f446d04249a81e903f08f78ea45b3";
+	// $test = "0";
+	// $sender = "Order Confirmaton"; // This is who the message appears to be from.
+	// $numbers = "7992372914"; // A single number or a comma-seperated list of numbers
+	// $message = $email_order;
+	// $message = urlencode($message);
+	// $data = "username=".$username."&hash=".$hash."&message=".$message."&sender=".$sender."&numbers=".$numbers."&test=".$test;
+	// $ch = curl_init('http://api.textlocal.in/send/?');
+	// curl_setopt($ch, CURLOPT_POST, true);
+	// curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+	// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	// $result = curl_exec($ch); // This is the result from the API
+  // echo $result;
+	// curl_close($ch);
 
   tep_mail($order->customer['firstname'] . ' ' . $order->customer['lastname'], $order->customer['email_address'], EMAIL_TEXT_SUBJECT, $email_order, STORE_OWNER, STORE_OWNER_EMAIL_ADDRESS);
 

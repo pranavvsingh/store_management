@@ -15,7 +15,7 @@ define('NAVBAR_TITLE_2', 'History');
 
 define('HEADING_TITLE', 'My Order History');
 
-define('TEXT_ORDER_NUMBER', 'Order Number:');
+define('TEXT_ORDER_NUMBER', 'Order Id:');
 define('TEXT_ORDER_STATUS', 'Order Status:');
 define('TEXT_ORDER_DATE', 'Order Date:');
 define('TEXT_ORDER_SHIPPED_TO', 'Shipped To:');
