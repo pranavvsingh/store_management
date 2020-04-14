@@ -1,5 +1,5 @@
 <?php
-$env = "local";
+$env = "prod";
 if($env == "local"){
   define('HTTP_SERVER', 'http://localhost/');
   define('HTTPS_SERVER', 'http://localhost/');
@@ -23,15 +23,15 @@ if($env == "local"){
   define('STORE_SESSIONS', 'mysql');
   define('CFG_TIME_ZONE', 'Asia/Kolkata');
 }else if($env == "prod"){
-  define('HTTP_SERVER', 'http://103.250.184.170/');
-  define('HTTPS_SERVER', 'http://103.250.184.170/');
+  define('HTTP_SERVER', 'shorturl.at/enrC3');
+  define('HTTPS_SERVER', 'shorturl.at/enrC3');
   define('ENABLE_SSL', false);
   define('HTTP_COOKIE_DOMAIN', '');
   define('HTTPS_COOKIE_DOMAIN', '');
-  define('HTTP_COOKIE_PATH', '/stores/AshokProvision /');
-  define('HTTPS_COOKIE_PATH', '/stores/AshokProvision /');
-  define('DIR_WS_HTTP_CATALOG', '/stores/AshokProvision /');
-  define('DIR_WS_HTTPS_CATALOG', '/stores/AshokProvision /');
+  define('HTTP_COOKIE_PATH', '/stores/AshokProvision/');
+  define('HTTPS_COOKIE_PATH', '/stores/AshokProvision/');
+  define('DIR_WS_HTTP_CATALOG', '/stores/AshokProvision/');
+  define('DIR_WS_HTTPS_CATALOG', '/stores/AshokProvision/');
 
   define('DIR_FS_CATALOG', '/var/www/html/stores/AshokProvision/');
   define('DIR_FS_DOWNLOAD', DIR_FS_CATALOG . 'download/');
