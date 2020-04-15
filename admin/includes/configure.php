@@ -35,15 +35,15 @@ if($env == "local"){
   define('STORE_SESSIONS', 'mysql');
   define('CFG_TIME_ZONE', 'Asia/Kolkata');
 }else if($env == "prod"){
-   define('HTTP_SERVER', 'shorturl.at/enrC3');
-  define('HTTPS_SERVER', 'shorturl.at/enrC3');
+   define('HTTP_SERVER', 'http://a9b01b95.ngrok.io/');
+  define('HTTPS_SERVER', 'https://a9b01b95.ngrok.io/');
   define('ENABLE_SSL', false);
   define('HTTP_COOKIE_DOMAIN', '');
   define('HTTPS_COOKIE_DOMAIN', '');
   define('HTTP_COOKIE_PATH', '/stores/AshokProvision/admin');
   define('HTTPS_COOKIE_PATH', '/stores/AshokProvision/admin');
-  define('HTTP_CATALOG_SERVER', 'shorturl.at/enrC3');
-  define('HTTPS_CATALOG_SERVER', 'shorturl.at/enrC3');
+  define('HTTP_CATALOG_SERVER', 'http://a9b01b95.ngrok.io/');
+  define('HTTPS_CATALOG_SERVER', 'https://a9b01b95.ngrok.io/');
   define('ENABLE_SSL_CATALOG', 'false');
   define('DIR_FS_DOCUMENT_ROOT', '/var/www/html/stores/AshokProvision/');
   define('DIR_WS_ADMIN', '/stores/AshokProvision/admin/');
