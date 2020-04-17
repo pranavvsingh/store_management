@@ -29,9 +29,9 @@
     function process() {
       global $order, $currencies;
 
-      // $this->output[] = array('title' => $this->title . ':',
-      //                         'text' => '<strong>' . $currencies->format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']) . '</strong>',
-      //                         'value' => $order->info['total']);
+      $this->output[] = array('title' => $this->title . ':',
+                              'text' => '<strong>' . $currencies->format($order->info['total'], true, $order->info['currency'], $order->info['currency_value']) . '</strong>',
+                              'value' => $order->info['total']);
     }
 
     function check() {

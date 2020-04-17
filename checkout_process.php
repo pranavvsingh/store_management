@@ -279,34 +279,34 @@
   }
 
 
-    $customerPhone = '91'.$order->customer['telephone'];
-    $orderdata = json_encode(array(
-        'chatId'=>$customerPhone.'@c.us',
-        'body'=> $email_order,
-    ));
-    $url = 'https://eu116.chat-api.com/instance116595/sendMessage?token=kyhcu6fb3htxx2xe';
-    $options1 = stream_context_create(['http' => [
-        'method'  => 'POST',
-        'header'  => 'Content-type: application/json',
-        'content' => $orderdata
-    ]
-    ]);
-    $response1 = file_get_contents($url,false,$options1);
-
-
-    $adminPhone = '91'.STORE_PHONE;
-    $orderdata = json_encode(array(
-        'chatId'=>$adminPhone.'@c.us',
-        'body'=> $email_order,
-    ));
-    $url = 'https://eu116.chat-api.com/instance116595/sendMessage?token=kyhcu6fb3htxx2xe';
-    $options2 = stream_context_create(['http' => [
-        'method'  => 'POST',
-        'header'  => 'Content-type: application/json',
-        'content' => $orderdata
-    ]
-    ]);
-    $response2 = file_get_contents($url,false,$options2);
+    // $customerPhone = '91'.$order->customer['telephone'];
+    // $orderdata = json_encode(array(
+    //     'chatId'=>$customerPhone.'@c.us',
+    //     'body'=> $email_order,
+    // ));
+    // $url = 'https://eu116.chat-api.com/instance116595/sendMessage?token=kyhcu6fb3htxx2xe';
+    // $options1 = stream_context_create(['http' => [
+    //     'method'  => 'POST',
+    //     'header'  => 'Content-type: application/json',
+    //     'content' => $orderdata
+    // ]
+    // ]);
+    // $response1 = file_get_contents($url,false,$options1);
+    //
+    //
+    // $adminPhone = '91'.STORE_PHONE;
+    // $orderdata = json_encode(array(
+    //     'chatId'=>$adminPhone.'@c.us',
+    //     'body'=> $email_order,
+    // ));
+    // $url = 'https://eu116.chat-api.com/instance116595/sendMessage?token=kyhcu6fb3htxx2xe';
+    // $options2 = stream_context_create(['http' => [
+    //     'method'  => 'POST',
+    //     'header'  => 'Content-type: application/json',
+    //     'content' => $orderdata
+    // ]
+    // ]);
+    // $response2 = file_get_contents($url,false,$options2);
 
   // $username = "pranavvsingh46@gmail.com";
 	// $hash = "45abc9ea147c660da5f80c936f0180059b8f446d04249a81e903f08f78ea45b3";

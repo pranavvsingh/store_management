@@ -23,8 +23,8 @@ if($env == "local"){
   define('STORE_SESSIONS', 'mysql');
   define('CFG_TIME_ZONE', 'Asia/Kolkata');
 }else if($env == "prod"){
-  define('HTTP_SERVER', 'http://a9b01b95.ngrok.io/');
-  define('HTTPS_SERVER', 'https://a9b01b95.ngrok.io/');
+  define('HTTP_SERVER', 'http://ehsop-ecomstore.pagekite.me');
+  define('HTTPS_SERVER', 'https://ehsop-ecomstore.pagekite.me');
   define('ENABLE_SSL', false);
   define('HTTP_COOKIE_DOMAIN', '');
   define('HTTPS_COOKIE_DOMAIN', '');
